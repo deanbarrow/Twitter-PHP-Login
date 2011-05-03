@@ -1,0 +1,16 @@
+Twitter-PHP-Login is a quick and simple way to allow users to log into your site using Twitter's OAuth API.
+API calls are made via Twitter-async (https://github.com/jmathai/twitter-async).
+
+Howto
+	* Add you own consumer key and secret to the top of twitter.php.
+	* To make a page accessible only to logged in users, please add: require_once 'twitter.php'; to the top of the page.
+	* Please see source comments for further information.
+
+Blog
+	* http://www.deanbarrow.co.uk/2011/05/twitter-php-oauth-login
+	
+Demo
+	* Not available just yet.
+
+Future Ideas
+	* Add a MySQL based login system to store user information and sessions.
