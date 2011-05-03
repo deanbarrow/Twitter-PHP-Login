@@ -1,4 +1,11 @@
-<?php 
+<?php
+/* How to use:
+ * Add the following line to the top 
+ * of any page you wish to protect:
+ * 
+ * require_once 'twitter.php';
+ */
+
 session_start();
 require_once 'twitter-async/EpiCurl.php';
 require_once 'twitter-async/EpiOAuth.php';
