@@ -1,4 +1,5 @@
 <?php
-require_once 'twitter.php';
-twitterLogout();
+	require_once 'twitter.php';
+	twitterProtect();
+	twitterLogout();
 ?>

@@ -3,7 +3,7 @@ API calls are made via Twitter-async (https://github.com/jmathai/twitter-async).
 
 Howto
   * Add you own consumer key and secret to the top of twitter.php.
-  * To make a page accessible only to logged in users, please add: require_once 'twitter.php'; to the top of the page.
+  * To make a page accessible only to logged in users, please add: require_once 'twitter.php'; twitterProtect(); to the top of the page.
   * Please see source comments for further information.
 
 Blog
@@ -13,4 +13,5 @@ Demo
   * Not available just yet.
 
 Future Ideas
+  * Convert the script into a class.
   * Add a MySQL based login system to store user information and sessions.

@@ -2,34 +2,43 @@
 /* How to use:
  * Add the following line to the top 
  * of any page you wish to protect:
- * 
- * require_once 'twitter.php';
+ * 	twitterProtect();
+ *
+ * Make sure your Twitter app Callback URL points to the page with twitterLogin();
+ *
+ * CONFIG
+ * $consumer_key - Twitter consumer key
+ * $consumer_secret - Twitter consumer secret
+ * $home - Where you would like to send users upon login
  */
+$consumer_key = "";
+$consumer_secret = "";
+$home = "/protected.php";
 
 session_start();
 require_once 'twitter-async/EpiCurl.php';
 require_once 'twitter-async/EpiOAuth.php';
 require_once 'twitter-async/EpiTwitter.php';
 
-/* Enter your consumer key and secret here */
-$consumer_key = "";
-$consumer_secret = "";
-
-/* By default, all pages which include twitter.php are protected */
-twitterLogin();
-
-/* Call this function on every page you want protected.
- * If the user is not logged in, the logon link is displayed.
- */
+/* Call this wherever you would like your login link */
 function twitterLogin(){
 	global $consumer_key, $consumer_secret;
 	if (!$consumer_key || !$consumer_secret) die ('Please enter your consumer key/secret!');
 	if (isset($_GET['oauth_token'])) twitterCallback();
-	if ($_SESSION['logged_in']) return true;
 	$twitterObj = new EpiTwitter($consumer_key, $consumer_secret);
 	$url = $twitterObj->getAuthorizationUrl();
-	// Customise your login page/link here
+	// Customise your login link here
 	echo "<a href='$url'><img src=\"https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png\" /></a>";
+}
+
+
+/* Call this function on every page you want protected.
+ * If the user is not logged in, the logon link is displayed.
+ */
+function twitterProtect(){
+	if ($_SESSION['logged_in']) return true;
+	// Customise error message here
+	echo "<p>You must be logged in to view this page!</p>";
 	exit();
 }
 
@@ -40,7 +49,7 @@ function twitterLogin(){
  */
 function twitterCallback(){
 	if ($_SESSION['logged_in']){ header ('Location: /'); exit(); }
-	global $consumer_key, $consumer_secret;
+	global $consumer_key, $consumer_secret, $home;
 	$twitterObj = new EpiTwitter($consumer_key, $consumer_secret);
 	$twitterObj->setToken($_GET['oauth_token']);
 	$token = $twitterObj->getAccessToken();
@@ -52,7 +61,7 @@ function twitterCallback(){
 	$username = $twitterInfo->screen_name;
 	$_SESSION['logged_in'] = $username;
 	// Here you can integrate a database backed login system with stored users and sessions
-	header ('Location: /Twitter-PHP-Login');
+	header ("Location: $home");
 	exit();
 }
 
