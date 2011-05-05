@@ -39,6 +39,8 @@ function twitterProtect(){
 	if ($_SESSION['logged_in']) return true;
 	// Customise error message here
 	echo "<p>You must be logged in to view this page!</p>";
+	// Display login link for convenience
+	twitterLogin();
 	exit();
 }
 
